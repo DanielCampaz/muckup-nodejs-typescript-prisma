@@ -2,6 +2,6 @@
 
 # Muckup: Node-js Typescript Express
 
-Template for Node js API with express typescript, with eslint configured along with prettier, Jest for unit tests and supertes for the API, this code is adjusted to the default configuration of all my projects using this stock, part of this code is made up of Midudev code, Fazt Code and MonkeyWit
+Template for Node js API with express typescript, with eslint configured along with prettier, Jest for unit tests and supertes for the API, this code is adjusted to the default configuration of all my projects using this stock, part of this code is made up of [Midudev](https://www.youtube.com/watch?v=ZpY5KdGQvwI&t=1169s&ab_channel=midudev), [Fazt Code](https://www.youtube.com/watch?v=lZJ1mar_znk&t=1096s&ab_channel=FaztCode) and [MonkeyWit](https://www.youtube.com/watch?v=I-f6aQzHHMo&ab_channel=MonkeyWit).
 
 Developed by Daniel Campaz, I hope it helps you
