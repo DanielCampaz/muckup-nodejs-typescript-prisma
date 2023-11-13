@@ -13,4 +13,5 @@ In file .env
 ```js
 EXPRESS_PORT =
 DATABASE_URL =
+SECRET_TOKEN_JWT =
 ```
