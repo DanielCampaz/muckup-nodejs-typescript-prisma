@@ -1,24 +1,8 @@
-import express from 'express';
+import App from '@/app';
+import ExampleRouter from '@/routes/example/example.route';
 
-import exampleRoute from '@/routes/example.route';
-import env from './utils/enviroments';
-
-const app = express();
-app.use(express.json());
-
-app.get('/ping', (_req, res) => {
-  console.log('Someone Ping ' + new Date().toLocaleDateString());
-  res.send('Pong');
-});
-
-app.use('/example', exampleRoute);
-
-export function Main(): void {
-  const PORT = env.EXPRESS_PORT;
-
-  app.listen(PORT, () => {
-    console.log(`Server Lisent to Port ${PORT}`);
-  });
+export function Main(init: boolean): void {
+  const app = App.getInstance();
+  app.import(ExampleRouter.getInstance());
+  if (init) app.initialize();
 }
-
-export default app;

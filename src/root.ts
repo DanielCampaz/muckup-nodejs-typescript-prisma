@@ -13,6 +13,9 @@
 
 */
 
-import { Main } from './main';
+import { Main } from '@/main';
+import PrismaConnect from './class/prisma/prisma.class';
 
-Main();
+Main(true);
+
+PrismaConnect.getInstance().checkConnection();
