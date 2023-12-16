@@ -8,10 +8,4 @@ Developed by [Daniel Campaz](https://github.com/DanielCampaz), I hope it helps y
 
 # Enviroments:
 
-In file .env
-
-```js
-EXPRESS_PORT =
-DATABASE_URL =
-SECRET_TOKEN_JWT =
-```
+Change .enviroment for .env or .en.local

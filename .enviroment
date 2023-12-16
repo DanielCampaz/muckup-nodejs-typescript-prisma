@@ -1,0 +1,32 @@
+# This was inserted by `prisma init`:
+# Environment variables declared in this file are automatically made available to Prisma.
+# See the documentation for more detail: https://pris.ly/d/prisma-schema#accessing-environment-variables-from-the-schema
+
+# Prisma supports the native connection string format for PostgreSQL, MySQL, SQLite, SQL Server, MongoDB and CockroachDB.
+# See the documentation for all the connection string options: https://pris.ly/d/connection-strings
+
+DATABASE_URL= "mongodb+srv://***:***@***.ocp1scl.mongodb.net/***"
+# mongodb mysql
+DATABASE_TYPE = "mongodb"
+
+SECRET_TOKEN_JWT =  "***"
+
+EXPRESS_PORT = 0001
+NMS_PORT_HTTP = 0001
+NMS_APP_NAME =  "***"
+NMS_AUTH_KEY =  "***"
+
+PASSWORD_MONGODB_ATLAS =   "***"
+USERNAME_MONGODB_ATLAS =  "***"
+
+FOLDER_MEDIA_NAME =  "***"
+URL_MEDIA_NAME =  "***"
+SINGLE_FILE_KEY_MULTER =  "***"
+MULT_FILE_KEY_MULTER =  "***"
+OBJECT_KEY_TO_VERIFICATE_PRISMA_CONNECTION =  "***"
+
+NMS_API_USER =  "***"
+NMS_API_PASS =  "***"
+
+EMAIL_NODEMAILER =  "***"
+PASSWORD_NODEMAILER =  "***"
