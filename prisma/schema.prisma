@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,9 +7,77 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user {
+model User {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   name     String @map("name")
   email    String @unique @map("email")
   password String @map("password")
+  role     Role   @default(USER)
+  file     File[]
+}
+
+model UrlCom {
+  id   String     @id @default(auto()) @map("_id") @db.ObjectId
+  type StreamType @map("type")
+  url  String     @map("url")
+}
+
+model StreamUrl {
+  id       String     @id @default(auto()) @map("_id") @db.ObjectId
+  name     String     @map("name")
+  url      String     @map("url")
+  active   Boolean    @map("active")
+  type     StreamType @map("type")
+  password String     @map("password")
+}
+
+model File {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  size     Int
+  url      String
+  filename String
+  encoding String
+  type     Type
+  subtype  SubType
+  create   DateTime @default(now())
+  userId   String   @db.ObjectId
+  User     User     @relation(fields: [userId], references: [id])
+}
+
+model Config {
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  visibility Boolean @default(true)
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum Type {
+  DOCUMENT
+  VIDEO
+  AUDIO
+  IMAGE
+}
+
+enum StreamType {
+  DEV
+  PROD
+}
+
+enum SubType {
+  PDF
+  WORD
+  EXCEL
+  MP4
+  MKV
+  MOV
+  WAV
+  MP3
+  JPG
+  JPEG
+  PNG
+  ICO
 }

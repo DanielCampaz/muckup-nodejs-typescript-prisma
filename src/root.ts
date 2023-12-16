@@ -14,8 +14,13 @@
 */
 
 import { Main } from '@/main';
-import PrismaConnect from './class/prisma/prisma.class';
+import PrismaConnect from './db/prisma.class';
 
 Main(true);
 
-PrismaConnect.getInstance().checkConnection();
+/* Verificamos la conexion a la base de Datos sea Correcta */
+PrismaConnect.getInstance()
+  .checkConnection()
+  .catch((err) => {
+    console.log(err);
+  });
