@@ -123,6 +123,45 @@ export default class StreamServer {
     };
   }
 
+  /* Cuando se Desconecta una Transmision */
+  private DoneConnect(): EventFunctionFnS {
+    return async (_id: string, StreamPath: string, _args: object) => {
+      /* Update Stream Database */
+      /* Obtenemos los datos del StreamPath */
+      const dataStream = seprStreamKey(StreamPath);
+
+      try {
+        /* Obtenemos Las bases de datos Stream */
+        const strem = StreamUrlDataBase.getInstance();
+        const data = await strem.readById(dataStream.idStream);
+
+        /* Verificamos que Stream Existe en la Base de Datos */
+        if (data !== null) {
+          /* Creamos el nuewvo Objeto Del stream Para actualizarlo */
+          const newStream: StreamUrl = {
+            ...data,
+            url: '',
+            active: false
+          };
+
+          /* Actualizamos el Stream */
+          await strem.update(
+            {
+              active: newStream.active,
+              name: newStream.name,
+              password: newStream.password,
+              type: newStream.type,
+              url: newStream.url
+            },
+            data.id
+          );
+
+          console.log('[Stream Stream Update]');
+        }
+      } catch (error) {}
+    };
+  }
+
   /* Como no estoy Utilizando todos los eventos Utilizo esta funcion para rastrearlos; este es para los eventos Connects que necesitan otro tipo de funcion */
   private ConnectEvents(
     name: string
@@ -157,7 +196,7 @@ export default class StreamServer {
           }
         }
       } else if ('app' in args) {
-        console.log('connection rtmp');
+        this.DoneConnect()(id, `/${args.app}/1234`, args);
       }
     };
   }
@@ -170,7 +209,7 @@ export default class StreamServer {
       /* Optenemos la session con el ID */
       const session = this.getSession(id);
       /* Verificamps la estructura del StreamPath que sea como la tenemos Arriba */
-      if (!verifyStructur(StreamPath)) return session.reject();
+      if (!verifyStructur(StreamPath)) session.reject();
       /* Obtenemos los datos del StreamPath */
       const dataStream = seprStreamKey(StreamPath);
 
@@ -178,7 +217,7 @@ export default class StreamServer {
       const isUser = await VerifyIDUserAdmin(dataStream.idUser);
       const isStream = await VerifyIDStream(dataStream.idStream);
 
-      if (!isUser.isAdmin || !isStream.is) return session.reject();
+      if (!isUser.isAdmin || !isStream.is) session.reject();
 
       console.log('[NodeEvent on prePublish]');
 

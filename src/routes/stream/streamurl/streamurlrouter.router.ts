@@ -39,6 +39,14 @@ export default class StreamUrlRouter implements IRouter {
       VerifyRequestIDStreamUrl,
       this.deleteUrl(this.streamUrlDB)
     );
+
+    this.router.get(
+      '/:id/:idStreamUrl',
+      JWT.getInstance().VerifyToken(),
+      VerifyRequestID,
+      VerifyRequestIDStreamUrl,
+      this.getStreamUrl(this.streamUrlDB)
+    );
   }
 
   private postSave(db: StreamUrlDataBase): RouterFunction {
@@ -57,6 +65,21 @@ export default class StreamUrlRouter implements IRouter {
         .catch((_err) => {
           res.json({
             error: 'To Create StreamUrl to Database {{StreamUrlRouter}}'
+          });
+        });
+    };
+  }
+
+  private getStreamUrl(db: StreamUrlDataBase): RouterFunction {
+    return ({ params }: Request, res: Response) => {
+      const { idStreamUrl } = params;
+      db.readById(idStreamUrl)
+        .then((data) => {
+          res.json(data);
+        })
+        .catch((_err) => {
+          res.json({
+            error: 'To Get StreamUrl to Database {{StreamUrlRouter}}'
           });
         });
     };
