@@ -288,3 +288,14 @@ export function GenerateURLLink(path: string): string {
 export function ConvertByteToMB(sizeByte: number): number {
   return sizeByte / 1024 / 1024;
 }
+
+export function GetTime(type: $Enums.Role): `${string}h` {
+  switch (type) {
+    case 'ADMIN':
+      return `${CONSTS.TOKEN_TIME_ADMIN}h`;
+    case 'USER':
+      return `${CONSTS.TOKEN_TIME_USER}h`;
+    default:
+      return `${CONSTS.TOKEN_TIME_USER}h`;
+  }
+}

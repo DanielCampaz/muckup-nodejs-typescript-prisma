@@ -9,7 +9,9 @@ const CONSTS = {
   NMS_API_PASS: env.NMS_API_PASS ?? '1234',
   NMS_PORT_HTTP: Number(env.NMS_PORT_HTTP) ?? 8000,
   NMS_APP_NAME: env.NMS_APP_NAME ?? 'live',
-  NMS_AUTH_KEY: env.NMS_AUTH_KEY ?? 'dev'
+  NMS_AUTH_KEY: env.NMS_AUTH_KEY ?? 'dev',
+  TOKEN_TIME_ADMIN: env.TOKEN_TIME_ADMIN ?? '24',
+  TOKEN_TIME_USER: env.TOKEN_TIME_USER ?? '2'
 };
 
 export default CONSTS;

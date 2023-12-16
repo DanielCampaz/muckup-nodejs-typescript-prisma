@@ -18,7 +18,9 @@ const env: EnvInterface = {
   PASSWORD_NODEMAILER: process.env.PASSWORD_NODEMAILER,
   NMS_PORT_HTTP: process.env.NMS_PORT_HTTP,
   NMS_APP_NAME: process.env.NMS_APP_NAME,
-  NMS_AUTH_KEY: process.env.NMS_AUTH_KEY
+  NMS_AUTH_KEY: process.env.NMS_AUTH_KEY,
+  TOKEN_TIME_ADMIN: process.env.TOKEN_TIME_ADMIN,
+  TOKEN_TIME_USER: process.env.TOKEN_TIME_USER
 };
 
 export default env;

@@ -76,6 +76,14 @@ export default class UserDataBase implements IDataBase<User, UserOptional> {
     };
   }
 
+  async readByEmail(email: string): Promise<User | null> {
+    return await this.prisma.user.findUnique({
+      where: {
+        email
+      }
+    });
+  }
+
   async readBySearch(
     query: Query<Partial<User>>,
     paginate?: Paginate

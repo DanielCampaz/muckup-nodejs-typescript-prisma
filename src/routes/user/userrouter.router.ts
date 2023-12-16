@@ -5,7 +5,7 @@ import type { PathType } from '@/types/IRouter';
 import type { RouterFunction } from '@/types/types';
 import {
   DeleteFolderUser,
-  VerifyIDUser,
+  VerifyIDUserAdmin,
   VerifyRequestID
 } from '@/utils/functions';
 import Hash from '@/utils/hash';
@@ -26,8 +26,6 @@ export default class UserRouter implements IRouter {
   }
 
   initializeRoutes<T>(_value?: T | undefined): void {
-    this.router.get('/token/:id', this.getToken());
-
     this.router.post('/', this.postSave(this.userDB));
 
     this.router.get(
@@ -45,15 +43,21 @@ export default class UserRouter implements IRouter {
   }
 
   private postSave(db: UserDataBase): RouterFunction {
-    return (req: Request, res: Response) => {
-      let { name, email, password, role } = req.body as {
+    return async (req: Request, res: Response) => {
+      const { name, email, password, userAdminId } = req.body as {
         name: string;
         email: string;
         password: string;
-        role?: $Enums.Role;
+        userAdminId?: string;
       };
 
-      role = $Enums.Role.USER;
+      let role: $Enums.Role = $Enums.Role.USER;
+      if (userAdminId !== undefined) {
+        const isAdmin = await VerifyIDUserAdmin(userAdminId);
+        if (isAdmin.isAdmin) {
+          role = $Enums.Role.ADMIN;
+        }
+      }
 
       db.create({
         email,
@@ -67,34 +71,6 @@ export default class UserRouter implements IRouter {
         .catch((error) => {
           res.status(403).json({ error });
         });
-    };
-  }
-
-  private getToken(): RouterFunction {
-    return (req: Request, res: Response) => {
-      const { id } = req.params;
-      if (id !== undefined) {
-        VerifyIDUser(id)
-          .then(({ is, user }) => {
-            if (is) {
-              const token = JWT.getInstance().CreateToken(user, '2h');
-              res.json({
-                token
-              });
-            } else {
-              res.status(400).json({
-                error: 'No User Whit this Id'
-              });
-            }
-          })
-          .catch((error) => {
-            console.log(`Error Get TOken UserRouter: ${JSON.stringify(error)}`);
-          });
-      } else {
-        res.status(400).json({
-          error: 'No Proccess Id Undefined'
-        });
-      }
     };
   }
 
